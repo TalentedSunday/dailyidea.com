@@ -6,6 +6,8 @@
       <v-row style="padding: 0 8px">
         <template v-if="!searchIdeaMode">
           <v-col style="padding: 0" cols="10">
+          <v-row >
+          <v-col cols="2">
             <v-btn
               small
               class="lightPinkButton"
@@ -15,6 +17,8 @@
             >
               <v-icon>mdi-menu</v-icon>
             </v-btn>
+            </v-col>
+            <v-col cols="10" class="text-center"> 
             <nuxt-link
               class="logoLink"
               :to="{ name: 'ideas-me' }"
@@ -31,6 +35,8 @@
                 src="~/assets/images/logo_text.png"
               />
             </nuxt-link>
+            </v-col>
+            </v-row>
           </v-col>
           <v-col style="padding: 0; text-align: right"></v-col>
         </template>
