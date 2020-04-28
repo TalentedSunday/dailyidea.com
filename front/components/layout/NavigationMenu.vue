@@ -5,10 +5,9 @@
     absolute
     temporary
   >
-    <v-list dense dark>
-      <!-- Back button -->
 
-      <div class="logo-container">
+    <v-list dense dark>
+     <div class="logo-container">
         <img
           src="~/assets/images/bulb_white_on.png"
           class="logo-container__image"
@@ -18,41 +17,87 @@
           >fa-times</v-icon
         >
       </div>
-      <v-list-item @click.native="openPage('/ideas/all')">
+      <v-list-item
+        active-class="highlighted"
+        :class="'/ideas/all' === $route.path ? 'highlighted' : ''"
+        @click.native="openPage('/ideas/all')"
+      >
         <v-list-item-content>
-          <v-list-item-title>All Ideas</v-list-item-title>
-        </v-list-item-content>
-      </v-list-item>
-      <v-list-item v-if="isAuthenticated" @click.native="openPage('/ideas/me')">
-        <v-list-item-content>
-          <v-list-item-title>My Ideas</v-list-item-title>
+          <v-list-item-title
+            ><v-icon small>mdi-lightbulb-on</v-icon>All Ideas</v-list-item-title
+          >
         </v-list-item-content>
       </v-list-item>
       <v-list-item
         v-if="isAuthenticated"
+        active-class="highlighted"
+        :class="'/ideas/me' === $route.path ? 'highlighted' : ''"
+        @click.native="openPage('/ideas/me')"
+      >
+        <v-list-item-content>
+          <v-list-item-title
+            ><v-icon small>mdi-head-lightbulb</v-icon>My
+            Ideas</v-list-item-title
+          >
+        </v-list-item-content>
+      </v-list-item>
+      <v-list-item
+        v-if="isAuthenticated"
+        active-class="highlighted"
+        :class="'/ideas/liked' === $route.path ? 'highlighted' : ''"
         @click.native="openPage('/ideas/liked')"
       >
         <v-list-item-content>
-          <v-list-item-title>Liked Ideas</v-list-item-title>
+          <v-list-item-title
+            ><v-icon small>mdi-bookmark</v-icon>Favorite Ideas</v-list-item-title
+          >
         </v-list-item-content>
       </v-list-item>
-      <v-list-item v-if="isAuthenticated" @click.native="openPage('/profile')">
+      <v-list-item
+        v-if="isAuthenticated"
+        active-class="highlighted"
+        :class="'/profile' === $route.path ? 'highlighted' : ''"
+        @click.native="openPage('/profile')"
+      >
         <v-list-item-content>
-          <v-list-item-title>My Profile</v-list-item-title>
+          <v-list-item-title
+            ><v-icon small>mdi-account-circle</v-icon>My
+            Profile</v-list-item-title
+          >
         </v-list-item-content>
       </v-list-item>
-      <v-list-item v-if="isAuthenticated" @click.native="openPage('/settings')">
+      <v-list-item
+        v-if="isAuthenticated"
+        active-class="highlighted"
+        :class="'/settings' === $route.path ? 'highlighted' : ''"
+        @click.native="openPage('/settings')"
+      >
         <v-list-item-content>
-          <v-list-item-title>Settings</v-list-item-title>
+          <v-list-item-title
+            ><v-icon small>mdi-cog</v-icon>Settings</v-list-item-title
+          >
+        </v-list-item-content>
+      </v-list-item>
+       <v-list-item
+        v-if="isAuthenticated"
+      >
+        <v-list-item-content>
+          <v-list-item-title
+            ><v-icon small>mdi-account-circle</v-icon>FAQ</v-list-item-title
+          >
         </v-list-item-content>
       </v-list-item>
       <v-list-item v-if="isAuthenticated" @click.native="signOut">
         <v-list-item-content>
-          <v-list-item-title>Sign Out</v-list-item-title>
+          <v-list-item-title
+            ><v-icon small>mdi-exit-run</v-icon>Sign Out</v-list-item-title
+          >
         </v-list-item-content>
       </v-list-item>
       <v-list-item
         v-if="!isAuthenticated"
+        active-class="highlighted"
+        :class="'/auth/login' === $route.path ? 'highlighted' : ''"
         @click.native="openPage('/auth/login')"
       >
         <v-list-item-content>
@@ -61,6 +106,8 @@
       </v-list-item>
       <v-list-item
         v-if="!isAuthenticated"
+        active-class="highlighted"
+        :class="'/auth/signup' === $route.path ? 'highlighted' : ''"
         @click.native="openPage('/auth/signup')"
       >
         <v-list-item-content>
@@ -105,9 +152,8 @@ export default {
 
 <style scoped lang="scss">
 .sidebarMenu {
-  background: #4e2e62 !important;
+  background: $primary-color !important;
   z-index: 999;
-
   .logo-container {
     margin-top: 3vh;
     margin-bottom: 4vh;
@@ -127,8 +173,8 @@ export default {
     }
 
     &__icon {
-      margin-right: 16px;
-      float: right;
+      margin-right: 70px;
+      float: left;
       display: inline-block;
       font-size: 21px;
       vertical-align: top;
@@ -136,27 +182,55 @@ export default {
     }
   }
 
+ .logo-container,.logo-container .v-icon{
+      color:white;
+      font-size:12px;
+    }
+    .logo-container .v-icon{
+      padding-right:5px;
+      margin-left:10px;
+    
+    }
+    .logo-container  .logo-container__icon{
+      float:left;
+      padding-top:3px;
+    }
   // display: none;
   .v-list-item {
     cursor: pointer;
-
+    i.v-icon {
+      vertical-align: baseline;
+      margin-right: 0.5rem;
+    }
     &:hover,
     &:active {
-      background-color: #ffbd26 !important;
+      background-color: rgba(0, 0, 0, 0.2);
+      .v-list-item__title {
+        padding-left: 8px;
+      }
     }
-
+   
     .v-list-item__content {
       margin: 10px 0 !important;
       .nuxt-link-exact-active.nuxt-link-active {
         text-decoration: none;
       }
-
       .v-list-item__title {
         font-size: 16px;
         line-height: normal !important;
         color: white;
+        i.v-icon {
+          color: white;
+        }
       }
     }
+  }
+}
+.highlighted {
+  border-left: 4px solid $secondary-color;
+  .v-list-item__title,
+  .v-list-item__title i.v-icon {
+    color: $secondary-color !important;
   }
 }
 </style>
